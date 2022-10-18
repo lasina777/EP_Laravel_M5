@@ -1,16 +1,21 @@
 @extends('welcome')
 
-{{--Секция для создания или редактирования ролей--}}
+{{--Секция для создания или редактирования кабинетов--}}
 @section('content')
     <div class="container">
         <div class="row">
             <div class="col"></div>
             <div class="col-6">
-                <form method="post" action="{{(isset($role) ? route('admin.roles.update', ['role' => $role->id]) : route('admin.roles.store'))}}" enctype="multipart/form-data">
+                <form method="post" action="{{(isset($cabinet) ? route('admin.cabinets.update', ['cabinet' => $cabinet->id]) : route('admin.cabinets.store'))}}">
                     @csrf
-                    @isset($role)
+                    @isset($cabinet)
                         <input type="hidden" name="_method" value="PUT">
                     @endisset
+                    <div class="mb-3">
+                        <label for="inputСabinetNumber" class="form-label">Номер кабинета:</label>
+                        <input type="number" maxlength="3" name="cabinetNumber" class="form-control @error('cabinetNumber') is-invalid @enderror" id="inputCabinetNumber" placeholder="номер кабинета: 111" aria-describedby="invalidInputСabinetNumber" value="{{ old('cabinetNumber') }}">
+                        @error('cabinetNumber') <div id="invalidInputСabinetNumber" class="invalid-feedback"> {{ $message }} </div> @enderror
+                    </div>
                     <div class="mb-3">
                         <label for="inputName" class="form-label">Наименование:</label>
                         <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="inputName" placeholder="Наименование роли: Пользователь" aria-describedby="invalidInputName" value="{{ old('name') }}">
@@ -22,10 +27,10 @@
                         @error('EN_name') <div id="invalidInputEN_name" class="invalid-feedback"> {{ $message }} </div> @enderror
                     </div>
                     <button type="submit" class="btn btn-primary">
-                        @if(isset($role))
-                            Отредактировать роль
+                        @if(isset($cabinet))
+                            Отредактировать кабинет
                         @else
-                            Создать новую роль
+                            Создать новый кабинет
                         @endif
                     </button>
                 </form>

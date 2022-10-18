@@ -8,21 +8,21 @@
             <div class="col-8">
                 @if(session()->has('delete'))
                     @if(session()->get('delete'))
-                        <div class="alert alert-success">Роль успешно удалена!</div>
+                        <div class="alert alert-success">Кабинет успешно удален!</div>
                     @else
                         <div class="alert alert-success">У вас нет доступа!</div>
                     @endif
                 @endif
                 @if(session()->has('add'))
                     @if(session()->get('add'))
-                        <div class="alert alert-success">Роль успешно добавлена!</div>
+                        <div class="alert alert-success">Кабинет успешно добавлен!</div>
                     @else
                         <div class="alert alert-success">У вас нет доступа!</div>
                     @endif
                 @endif
                 @if(session()->has('edit'))
                     @if(session()->get('edit'))
-                        <div class="alert alert-success">Роль успешно изменена!</div>
+                        <div class="alert alert-success">Кабинет успешно изменен!</div>
                     @else
                         <div class="alert alert-success">У вас нет доступа!</div>
                     @endif
@@ -33,6 +33,7 @@
                 <table class="table">
                     <thead>
                     <tr>
+                        <th scope="col">Номер кабинета</th>
                         <th scope="col">Наименование</th>
                         <th scope="col">Наименование на английском</th>
                         <th scope="col">Редактирование</th>
@@ -40,32 +41,33 @@
                     </tr>
                     </thead>
                     <tbody>
-                    @if(isset($roles))
+                    @if(isset($cabinets))
                         @csrf
-                        @foreach($roles as $role)
+                        @foreach($cabinets as $cabinet)
                             <tr>
-                                <td>{{$role->name}}</td>
-                                <td>{{$role->EN_name}}</td>
-                                <td><a href="{{route('admin.roles.edit', ['role' => $role->id])}}" class="btn btn-primary w-100"><i class="fi-edit"></i></a> </td>
-                                <td><button class="btn btn-danger w-100" id="roleDelete_{{$role->id}}" data-bs-toggle="modal" data-bs-target="#roleDelete_{{$role->id}}" type="button"><i class="fi-trash"></i></button></td>
+                                <td>{{$cabinet->cabinetNumber}}</td>
+                                <td>{{$cabinet->name}}</td>
+                                <td>{{$cabinet->EN_name}}</td>
+                                <td><a href="{{route('admin.cabinets.edit', ['cabinet' => $cabinet->id])}}" class="btn btn-primary w-100"><i class="fi-edit"></i></a> </td>
+                                <td><button class="btn btn-danger w-100" id="roleDelete_{{$cabinet->id}}" data-bs-toggle="modal" data-bs-target="#roleDelete_{{$cabinet->id}}" type="button"><i class="fi-trash"></i></button></td>
                             </tr>
-                            <div class="modal fade" id="roleDelete_{{$role->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal fade" id="roleDelete_{{$cabinet->id}}" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
                                 <div class="modal-dialog">
                                     <div class="modal-content">
                                         <div class="modal-header">
-                                            <h5 class="modal-title" id="exampleModalLabel">Удалить роль {{$role->EN_name}}</h5>
+                                            <h5 class="modal-title" id="exampleModalLabel">Удалить кабинет {{$cabinet->cabinetNumber}}</h5>
                                             <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                         </div>
                                         <div class="modal-body">
-                                            Вы точно хотите удалить роль {{$role->name}}?
+                                            Вы точно хотите удалить кабинет {{$cabinet->cabinetNumber}}?
                                         </div>
                                         <div class="modal-footer">
                                             <div class="btn-group" role="group" aria-label="Solid button group">
                                                 <button type="button" class="btn btn-secondary btn-sm" data-bs-dismiss="modal">Закрыть</button>
-                                                <form action="{{route('admin.roles.destroy', ['role' => $role->id])}}" method="POST">
+                                                <form action="{{route('admin.cabinets.destroy', ['cabinet' => $cabinet->id])}}" method="POST">
                                                     <input type="hidden" name="_method" value="DELETE">
                                                     @csrf
-                                                    <button type="submit" class="btn btn-danger btn-sm">Да, я точно хочу удалить данную роль</button>
+                                                    <button type="submit" class="btn btn-danger btn-sm">Да, я точно хочу удалить данный кабинет</button>
                                                 </form>
                                             </div>
                                         </div>
@@ -75,7 +77,7 @@
                         @endforeach
                     @else
                         <tr>
-                            <td colspan="5" class="text-center">Пока ролей нет!</td>
+                            <td colspan="5" class="text-center">Пока кабинетов нет!</td>
                         </tr>
                     @endif
                     </tbody>

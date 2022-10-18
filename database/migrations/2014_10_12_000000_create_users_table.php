@@ -26,7 +26,6 @@ return new class extends Migration
             $table->enum('gender',['Мужчина', 'Женщина']);
             $table->date('birthday');
             $table->foreignIdFor(\App\Models\Role::class)->default($this->id())->constrained()->cascadeOnDelete();
-            $table->foreignIdFor(\App\Models\Cabinet::class)->nullable()->constrained()->cascadeOnDelete();
             $table->string('phone')->unique();
             $table->string('email')->unique();
             $table->string('password');

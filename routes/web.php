@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CabinetController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -34,6 +35,9 @@ Route::middleware('auth')->group(function (){
         // Совместное использование артрибутов маршрута
         Route::group(['prefix' => '/admin', 'as' => 'admin.'], function (){
             Route::resource('/roles', RoleController::class);
+            Route::resource('/users', UserController::class);
+            Route::resource('/cabinets', CabinetController::class);
+            Route::put('/editRole/{user}', [UserController::class, 'editRole'])->name('editRole');
         });
     });
 });

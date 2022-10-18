@@ -23,7 +23,7 @@ class RoleController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function create(Request $request)
     {
@@ -35,14 +35,13 @@ class RoleController extends Controller
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function store(RoleCreateValidation $request)
     {
         $validate = $request->validated();
         Role::create($validate);
-        $roles = Role::all();
-        return redirect()->route('admin.roles.index', compact('roles'))->with(['add' => 'true']);
+        return redirect()->route('admin.roles.index')->with(['add' => 'true']);
     }
 
     /**
@@ -60,7 +59,7 @@ class RoleController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function edit(Request $request, Role $role)
     {
@@ -73,21 +72,20 @@ class RoleController extends Controller
      *
      * @param  \Illuminate\Http\Request  $request
      * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function update(RoleUpdateValidation $request, Role $role)
     {
         $validate = $request->validated();
         $role->update($validate);
-        $roles = Role::all();
-        return redirect()->route('admin.roles.index', compact('roles'))->with(['edit' => 'true']);
+        return redirect()->route('admin.roles.index')->with(['edit' => 'true']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  \App\Models\Role  $role
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
     public function destroy(Role $role)
     {

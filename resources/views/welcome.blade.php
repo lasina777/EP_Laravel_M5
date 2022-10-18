@@ -18,7 +18,7 @@
         <div class="collapse navbar-collapse order-lg-2" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a href="#" class="nav-link">Home</a>
+                    <a href="#" class="nav-link">Главная</a>
                 </li>
                 @guest
                     <li class="nav-item">
@@ -44,8 +44,27 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li>
-                                    <a href="#" class="dropdown-item">Another action</a>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-item dropdown-toggle">Пользователи</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{{route('admin.users.create')}}" class="dropdown-item">Создание</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('admin.users.index')}}" class="dropdown-item">Просмотр</a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-item dropdown-toggle">Кабинеты</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{{route('admin.cabinets.create')}}" class="dropdown-item">Создание</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('admin.cabinets.index')}}" class="dropdown-item">Просмотр</a>
+                                        </li>
+                                    </ul>
                                 </li>
                                 <li class="dropdown-divider"></li>
                                 <li>

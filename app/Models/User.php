@@ -26,13 +26,9 @@ class User extends Authenticatable
         'password',
         'role_id',
         'cabinet_id',
-        'privacy'
     ];
 
     public function role(){
         return $this->belongsTo(Role::class);
-    }
-    public function cabinet(){
-        return $this->belongsTo(Cabinet::class);
     }
 }
