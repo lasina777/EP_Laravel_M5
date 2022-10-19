@@ -27,7 +27,6 @@ class CabinetController extends Controller
      */
     public function create(Request $request)
     {
-        $request->session()->flashInput([]);
         return view('admin.cabinet.createOrUpdate');
     }
 

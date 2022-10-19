@@ -3,10 +3,12 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\Admin\User\NewUserValidation;
+use App\Http\Requests\Admin\User\UserUpdateCompetenceValidation;
 use App\Http\Requests\Admin\User\UserUpdateRoleValidation;
 use App\Http\Requests\Admin\User\UserUpdateValidation;
 use App\Http\Requests\LoginValidation;
 use App\Http\Requests\RegisterValidation;
+use App\Models\Competence;
 use App\Models\Role;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -62,7 +64,8 @@ class UserController extends Controller
     {
         $roles = Role::all();
         $users = User::all();
-        return view('admin.user.users', compact('users','roles'));
+        $competences = Competence::all();
+        return view('admin.user.users', compact('users','roles', 'competences'));
     }
 
     public function destroy(User $user)
@@ -93,7 +96,16 @@ class UserController extends Controller
     public function editRole(UserUpdateRoleValidation $request, User $user)
     {
         $validate = $request->validated();
+        if (!($validate['role_id'] == 2 && $user->role_id == 2))
+            $validate['competence_id'] = NULL;
         $user->update($validate);
         return redirect()->route('admin.users.index')->with(['role' => true]);
+    }
+
+    public function editCompetence(UserUpdateCompetenceValidation $request, User $user)
+    {
+        $validate = $request->validated();
+        $user->update($validate);
+        return redirect()->route('admin.users.index')->with(['competence' => true]);
     }
 }

@@ -26,9 +26,14 @@ class User extends Authenticatable
         'password',
         'role_id',
         'cabinet_id',
+        'competence_id',
     ];
 
     public function role(){
         return $this->belongsTo(Role::class);
+    }
+
+    public function competence(){
+        return $this->belongsTo(Competence::class);
     }
 }

@@ -1,6 +1,8 @@
 <?php
 
 use App\Http\Controllers\CabinetController;
+use App\Http\Controllers\CompetenceController;
+use App\Http\Controllers\RecordController;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -28,6 +30,8 @@ Route::post('/register',[UserController::class, 'registerPost']);
 
 Route::middleware('auth')->group(function (){
 
+    Route::resource('/records', RecordController::class);
+
     Route::get('/logout', [UserController::class,'logout'])->name('logout');
 
     Route::middleware('role:Admin')->group(function (){
@@ -38,6 +42,8 @@ Route::middleware('auth')->group(function (){
             Route::resource('/users', UserController::class);
             Route::resource('/cabinets', CabinetController::class);
             Route::put('/editRole/{user}', [UserController::class, 'editRole'])->name('editRole');
+            Route::resource('/competences', CompetenceController::class);
+            Route::put('/editCompetence/{user}', [UserController::class, 'editCompetence'])->name('editCompetence');
         });
     });
 });

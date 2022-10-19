@@ -29,6 +29,9 @@
                     </li>
                 @endguest
                 @auth
+                    <li class="nav-item">
+                        <a href="{{route('records.create')}}" class="nav-link">Записаться к врачу</a>
+                    </li>
                     @if(Auth::user()->role->EN_name == 'Admin')
                         <li class="nav-item dropdown">
                             <a href="#" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Администрирование</a>
@@ -66,9 +69,16 @@
                                         </li>
                                     </ul>
                                 </li>
-                                <li class="dropdown-divider"></li>
-                                <li>
-                                    <a href="#" class="dropdown-item">Something else here</a>
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-item dropdown-toggle">Компетенции</a>
+                                    <ul class="dropdown-menu">
+                                        <li>
+                                            <a href="{{route('admin.competences.create')}}" class="dropdown-item">Создание</a>
+                                        </li>
+                                        <li>
+                                            <a href="{{route('admin.competences.index')}}" class="dropdown-item">Просмотр</a>
+                                        </li>
+                                    </ul>
                                 </li>
                             </ul>
                         </li>

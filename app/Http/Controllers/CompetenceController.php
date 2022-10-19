@@ -2,22 +2,22 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\Admin\Role\RoleCreateValidation;
-use App\Http\Requests\Admin\Role\RoleUpdateValidation;
-use App\Models\Role;
+use App\Http\Requests\Admin\Competence\CompetenceCreateValidation;
+use App\Http\Requests\Admin\Competence\CompetenceUpdateValidation;
+use App\Models\Competence;
 use Illuminate\Http\Request;
 
-class RoleController extends Controller
+class CompetenceController extends Controller
 {
     /**
      * Display a listing of the resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
     public function index()
     {
-        $roles = Role::all();
-        return view('admin.role.roles', compact('roles'));
+        $competences = Competence::all();
+        return view('admin.competence.competences', compact('competences'));
     }
 
     /**
@@ -27,7 +27,7 @@ class RoleController extends Controller
      */
     public function create(Request $request)
     {
-        return view('admin.role.createOrUpdate');
+        return view('admin.competence.createOrUpdate');
     }
 
     /**
@@ -36,20 +36,20 @@ class RoleController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function store(RoleCreateValidation $request)
+    public function store(CompetenceCreateValidation $request)
     {
         $validate = $request->validated();
-        Role::create($validate);
-        return redirect()->route('admin.roles.index')->with(['add' => 'true']);
+        Competence::create($validate);
+        return redirect()->route('admin.competences.index')->with(['add' => 'true']);
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Competence  $competence
      * @return \Illuminate\Http\Response
      */
-    public function show(Role $role)
+    public function show(Competence $competence)
     {
         //
     }
@@ -57,38 +57,38 @@ class RoleController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Competence  $competence
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View|\Illuminate\Http\Response
      */
-    public function edit(Request $request, Role $role)
+    public function edit(Request $request, Competence $competence)
     {
-        $request->session()->flashInput($role->toArray());
-        return view('admin.role.createOrUpdate', compact('role'));
+        $request->session()->flashInput($competence->toArray());
+        return view('admin.competence.createOrUpdate', compact('competence'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Competence  $competence
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function update(RoleUpdateValidation $request, Role $role)
+    public function update(CompetenceUpdateValidation $request, Competence $competence)
     {
         $validate = $request->validated();
-        $role->update($validate);
-        return redirect()->route('admin.roles.index')->with(['edit' => 'true']);
+        $competence->update($validate);
+        return redirect()->route('admin.competences.index')->with(['edit' => 'true']);
     }
 
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Role  $role
+     * @param  \App\Models\Competence  $competence
      * @return \Illuminate\Http\RedirectResponse|\Illuminate\Http\Response
      */
-    public function destroy(Role $role)
+    public function destroy(Competence $competence)
     {
-        $role->delete();
+        $competence->delete();
         return back()->with(['delete' => true]);
     }
 }
